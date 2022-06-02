@@ -17,7 +17,12 @@ namespace SimpleWebApp
                 });
 
             builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Protected");
+                options.Conventions.AuthorizePage("/Account/Logout");
+                options.Conventions.AuthorizePage("/Account/Profile");
+            });
 
             var app = builder.Build();
 
