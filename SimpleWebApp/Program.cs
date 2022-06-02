@@ -1,3 +1,5 @@
+using Auth0.AspNetCore.Authentication;
+
 namespace SimpleWebApp
 {
     public class Program
@@ -8,6 +10,13 @@ namespace SimpleWebApp
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services
+                .AddAuth0WebAppAuthentication(options => {
+                    options.Domain = builder.Configuration["Auth0:Domain"];
+                    options.ClientId = builder.Configuration["Auth0:ClientId"];
+                });
+
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -20,6 +29,8 @@ namespace SimpleWebApp
 
             app.UseRouting();
 
+            // Add Auth0
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();
