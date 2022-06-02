@@ -9,14 +9,15 @@ namespace SimpleWebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
             builder.Services
                 .AddAuth0WebAppAuthentication(options => {
                     options.Domain = builder.Configuration["Auth0:Domain"];
                     options.ClientId = builder.Configuration["Auth0:ClientId"];
+                    options.Scope = "openid profile email";
                 });
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
