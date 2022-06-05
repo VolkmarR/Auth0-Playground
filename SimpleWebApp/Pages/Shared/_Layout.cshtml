@@ -30,7 +30,7 @@
                         @if (User?.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Account/Profile">Hello @User.Identity.Name!</a>
+                                <a class="nav-link text-dark" asp-page="/Account/Profile">Hello @User.Identity.Name!  (@User.Claims.FirstOrDefault(q => q.Type == "http://www.SimpleWebApp.com/tenant")?.Value)</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Account/Logout">Logout</a>
